@@ -1,0 +1,71 @@
+/*
+ *
+ *  * Copyright (C) 2017 Safaricom, Ltd.
+ *  *
+ *  * Licensed under the Apache License, Version 2.0 (the "License");
+ *  * you may not use this file except in compliance with the License.
+ *  * You may obtain a copy of the License at
+ *  *
+ *  * http://www.apache.org/licenses/LICENSE-2.0
+ *  *
+ *  * Unless required by applicable law or agreed to in writing, software
+ *  * distributed under the License is distributed on an "AS IS" BASIS,
+ *  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  * See the License for the specific language governing permissions and
+ *  * limitations under the License.
+ *
+ */
+
+apply plugin: 'com.android.application'
+apply plugin: 'com.jakewharton.butterknife'
+
+
+android {
+    compileSdkVersion 27
+    buildToolsVersion '28.0.3'
+    dataBinding.enabled = true
+
+    defaultConfig {
+        applicationId "com.kevinkoech.paympesa"
+        minSdkVersion 19
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        // CONSUMER_KEY and CONSUMER_SECRET are in gradle.properties
+        buildConfigField("String", "CONSUMER_KEY", CONSUMER_KEY)
+        buildConfigField("String", "CONSUMER_SECRET", CONSUMER_SECRET)
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+
+    compile 'com.android.support:appcompat-v7:27.0.2'
+    compile 'com.android.support:design:27.0.2'
+    compile 'com.android.support:cardview-v7:27.0.2'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+
+    compile 'com.squareup.retrofit2:retrofit:2.3.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.2.0'
+    compile 'com.google.code.gson:gson:2.8.2'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.9.1'
+
+    compile 'com.google.firebase:firebase-messaging:11.8.0'
+
+    compile 'com.jakewharton.timber:timber:4.6.0'
+    compile 'com.jakewharton:butterknife:8.6.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'
+
+    testCompile 'junit:junit:4.12'
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+}
+apply plugin: 'com.google.gms.google-services'
